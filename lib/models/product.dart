@@ -3,14 +3,14 @@ class Product {
   final String name;
   final double pricePerDetail;
   final double priceWholesale;
-  //final int categoryId;
+  final int categoryId;
 
   Product({
     required this.id,
     required this.name,
     required this.pricePerDetail,
     required this.priceWholesale,
-    //required this.categoryId,
+    required this.categoryId,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -19,6 +19,7 @@ class Product {
       name: json['name'],
       pricePerDetail: json['pricePerDetail'].toDouble(),
       priceWholesale: json['priceWholesale'].toDouble(),
+      categoryId: json['categoryId'],
     );
   }
 
@@ -28,6 +29,7 @@ class Product {
       'name': name,
       'pricePerDetail': pricePerDetail,
       'priceWholesale': priceWholesale,
+      'categoryId': categoryId,
     };
   }
 }
