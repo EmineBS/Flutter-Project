@@ -90,7 +90,7 @@ class _AppLogoAndHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [AppBar(title: Text("Back"),  backgroundColor: AppColors.primary),
+      children: [AppBar(title: const Text("Back"),  backgroundColor: AppColors.primary),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
           child: const AspectRatio(
@@ -98,7 +98,7 @@ class _AppLogoAndHeadline extends StatelessWidget {
             child: NetworkImageWithLoader(AppImages.roundedLogo),
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Text(
           'Welcome to our',
           style: Theme.of(context)

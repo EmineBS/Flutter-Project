@@ -73,7 +73,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
           // Adding the Row with radio buttons for Grossiste and Client
           const SizedBox(height: 8),
-          Text("Type de compte"),
+          const Text("Type de compte"),
           const SizedBox(height: 7),
           Row(
             mainAxisAlignment: MainAxisAlignment.center, // Align radio buttons to the left
