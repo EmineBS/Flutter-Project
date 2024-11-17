@@ -13,7 +13,7 @@ class ClientService {
       Response response = await _dio.get(apiUrl);
 
       if (response.statusCode == 200) {
-        List<dynamic> data = response.data;
+        List<dynamic> data = response.data["data"];
         return data.map((item) => Client.fromJson(item)).toList();
       } else {
         throw Exception('Failed to load clients');
@@ -29,7 +29,7 @@ class ClientService {
       Response response = await _dio.get('$apiUrl/$id');
 
       if (response.statusCode == 200) {
-        return Client.fromJson(response.data);
+        return Client.fromJson(response.data["data"]);
       } else {
         throw Exception('Failed to load client');
       }

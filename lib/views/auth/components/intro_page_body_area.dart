@@ -46,7 +46,7 @@ class IntroPageBodyArea extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () =>
                         Navigator.pushNamed(context, AppRoutes.login),
-                    child: const Text('Continue with your compte'),
+                    child: const Text('Continue with your account'),
                   ),
                 ),
                 const SizedBox(height: AppDefaults.padding),
@@ -59,7 +59,7 @@ class IntroPageBodyArea extends StatelessWidget {
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.white,
                     ),
-                    child: const Text('Create an account'),
+                    child: const Text('Create new account'),
                   ),
                 )
               ],

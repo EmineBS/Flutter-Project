@@ -13,7 +13,7 @@ class WholesalerService {
       Response response = await _dio.get(apiUrl);
 
       if (response.statusCode == 200) {
-        List<dynamic> data = response.data;
+        List<dynamic> data = response.data["data"];
         return data.map((item) => Wholesaler.fromJson(item)).toList();
       } else {
         throw Exception('Failed to load wholesalers');
@@ -29,7 +29,7 @@ class WholesalerService {
       Response response = await _dio.get('$apiUrl/$id');
 
       if (response.statusCode == 200) {
-        return Wholesaler.fromJson(response.data);
+        return Wholesaler.fromJson(response.data["data"]);
       } else {
         throw Exception('Failed to load wholesaler');
       }

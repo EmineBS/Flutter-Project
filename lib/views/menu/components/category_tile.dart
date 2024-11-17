@@ -37,7 +37,7 @@ class CategoryTile extends StatelessWidget {
                 width: 36,
                 child: AspectRatio(
                   aspectRatio: 1 / 1,
-                  child: NetworkImageWithLoader(
+                  child: Image.asset(
                     imageLink,
                     fit: BoxFit.contain,
                   ),

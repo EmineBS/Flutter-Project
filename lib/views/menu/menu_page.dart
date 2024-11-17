@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../core/constants/constants.dart';
 import '../../core/routes/app_routes.dart';
 import 'components/category_tile.dart';
@@ -37,45 +36,59 @@ class CateogoriesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         children: [
           CategoryTile(
-            imageLink: 'https://i.imgur.com/tGChxbZ.png',
-            label: 'Vegetables',
-            backgroundColor: AppColors.primary,
+            imageLink: 'assets/category_images/biscuit.png',
+            label: 'Cookies',
+            //backgroundColor: AppColors.primary,
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.categoryDetails);
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Cookies');
             },
           ),
           CategoryTile(
-            imageLink: 'https://i.imgur.com/yOFxoIP.png',
-            label: 'Meat And Fish',
+            imageLink: 'assets/category_images/brownie.png',
+            label: 'Brownies',
+            //backgroundColor: AppColors.primary,
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.categoryDetails);
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Brownies');
             },
           ),
           CategoryTile(
-            imageLink: 'https://i.imgur.com/GPsRaFC.png',
-            label: 'Medicine',
+            imageLink: 'assets/category_images/juice.png',
+            label: 'Juices',
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.categoryDetails);
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Juices');
             },
           ),
           CategoryTile(
-            imageLink: 'https://i.imgur.com/mGRqfnc.png',
-            label: 'Baby Care',
+            imageLink: 'assets/category_images/muffin.png',
+            label: 'Muffins',
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.categoryDetails);
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Muffins');
             },
           ),
           CategoryTile(
-            imageLink: 'https://i.imgur.com/fwyz4oC.png',
-            label: 'Office Supplies',
+            imageLink: 'assets/category_images/bonbon.png',
+            label: 'Sweets',
             onTap: () {
-              Navigator.pushNamed(context, AppRoutes.categoryDetails);
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Sweets');
             },
           ),
           CategoryTile(
+            imageLink: 'assets/category_images/chips.png',
+            label: 'Chips',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.categoryDetails,
+                  arguments: 'Chips');
+            },
+          ),
+          /*CategoryTile(
             imageLink: 'https://i.imgur.com/DNr8a6R.png',
             label: 'Beauty',
             onTap: () {
@@ -123,7 +136,7 @@ class CateogoriesGrid extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.categoryDetails);
             },
-          ),
+          ),*/
         ],
       ),
     );

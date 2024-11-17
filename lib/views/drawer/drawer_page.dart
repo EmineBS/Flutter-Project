@@ -6,6 +6,7 @@ import '../../core/constants/app_defaults.dart';
 import '../../core/constants/app_icons.dart';
 import '../../core/routes/app_routes.dart';
 import '../../core/components/app_settings_tile.dart';
+import 'package:grocery/core/utils/user_session.dart'; // Import the UserSession class
 
 class DrawerPage extends StatelessWidget {
   const DrawerPage({super.key});
@@ -21,7 +22,7 @@ class DrawerPage extends StatelessWidget {
         padding: const EdgeInsets.all(AppDefaults.padding),
         child: Column(
           children: [
-           /* AppSettingsListTile(
+            /* AppSettingsListTile(
               label: 'Invite Friend',
               trailing: SvgPicture.asset(AppIcons.right),
             ),*/
@@ -46,12 +47,12 @@ class DrawerPage extends StatelessWidget {
               trailing: SvgPicture.asset(AppIcons.right),
               onTap: () => Navigator.pushNamed(context, AppRoutes.help),
             ),
-           /* AppSettingsListTile(
+            /* AppSettingsListTile(
               label: 'Rate This App',
               trailing: SvgPicture.asset(AppIcons.right),
               // onTap: () => Navigator.pushNamed(context, AppRoutes.help),
             ),*/
-          /*  AppSettingsListTile(
+            /*  AppSettingsListTile(
               label: 'Privacy Policy',
               trailing: SvgPicture.asset(AppIcons.right),
               // onTap: () => Navigator.pushNamed(context, AppRoutes.),
@@ -65,7 +66,10 @@ class DrawerPage extends StatelessWidget {
             AppSettingsListTile(
               label: 'Logout',
               trailing: SvgPicture.asset(AppIcons.right),
-              onTap: () => Navigator.pushNamed(context, AppRoutes.introLogin),
+              onTap: () {
+                UserSession().setUser(null);
+                Navigator.pushNamed(context, AppRoutes.introLogin);
+              },
             ),
           ],
         ),

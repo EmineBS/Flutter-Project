@@ -14,7 +14,7 @@ class CategoryService {
       Response response = await _dio.get(apiUrl);
 
       if (response.statusCode == 200) {
-        List<dynamic> data = response.data;
+        List<dynamic> data = response.data["data"];
         return data.map((item) => Category.fromJson(item)).toList();
       } else {
         throw Exception('Failed to load categories');
@@ -45,7 +45,7 @@ class CategoryService {
       Response response = await _dio.get('$apiUrl/$id');
 
       if (response.statusCode == 200) {
-        return Category.fromJson(response.data);
+        return Category.fromJson(response.data["data"]);
       } else {
         throw Exception('Failed to load category');
       }
