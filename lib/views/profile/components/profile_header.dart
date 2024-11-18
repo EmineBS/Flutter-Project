@@ -20,6 +20,7 @@ class ProfileHeader extends StatelessWidget {
         Column(
           children: [
             AppBar(
+              automaticallyImplyLeading: false,
               title: const Text('Profile'),
               elevation: 0,
               backgroundColor: Colors.transparent,

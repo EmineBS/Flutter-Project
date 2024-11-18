@@ -11,7 +11,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.cardColor,
-      child: const Column(
+      child: ListView(
         children: [
           ProfileHeader(),
           ProfileMenuOptions(),
