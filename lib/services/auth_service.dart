@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import '../models/auth.dart';
+import '../services/result.dart';
+
 
 class AuthService {
   final Dio _dio = Dio();
@@ -8,7 +10,7 @@ class AuthService {
   AuthService({required this.apiUrl});
 
   // Method for registering a new user
-  Future<LoginResult> register(String username, String email, String phone,
+  Future<Result> register(String username, String email, String phone,
       String? role, String password) async {
     try {
       final response = await _dio.post(
@@ -23,7 +25,7 @@ class AuthService {
       );
 
       if (response.statusCode == 201) {
-        return LoginResult(
+        return Result(
           success: true,
           message: 'SignUp successful!',
           user: Auth.fromJson(response.data['user']),
@@ -37,12 +39,12 @@ class AuthService {
               e.response?.data['message'] ?? 'Unknown error occurred.';
 
           if (statusCode == 400) {
-            return LoginResult(
+            return Result(
               success: false,
               message: message.isEmpty ? 'User already exists' : message,
             );
           } else {
-            return LoginResult(
+            return Result(
               success: false,
               message: message,
             );
@@ -50,14 +52,14 @@ class AuthService {
         }
       }
     }
-    return LoginResult(
+    return Result(
       success: false,
       message: 'Unexpected error: No valid response from the server.',
     );
   }
 
   // Method for logging in a user
-  Future<LoginResult> login(String identifier, String password) async {
+  Future<Result> login(String identifier, String password) async {
     try {
       final response = await _dio.post(
         apiUrl,
@@ -68,7 +70,7 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        return LoginResult(
+        return Result(
           success: true,
           message: 'Login successful!',
           user: Auth.fromJson(response.data['user']),
@@ -82,17 +84,17 @@ class AuthService {
               e.response?.data['message'] ?? 'Unknown error occurred.';
 
           if (statusCode == 401) {
-            return LoginResult(
+            return Result(
               success: false,
               message: message.isEmpty ? 'Invalid credentials' : message,
             );
           } else if (statusCode == 404) {
-            return LoginResult(
+            return Result(
               success: false,
               message: message.isEmpty ? 'User not found!' : message,
             );
           } else {
-            return LoginResult(
+            return Result(
               success: false,
               message: message,
             );
@@ -100,19 +102,10 @@ class AuthService {
         }
       }
     }
-    return LoginResult(
+    return Result(
       success: false,
       message: 'Unexpected error: No valid response from the server.',
     );
   }
 }
 
-class LoginResult {
-  final bool success;
-  final String message;
-  final Auth? user;
-
-  LoginResult({required this.success, required this.message, this.user});
-
-  // You can add a factory constructor if needed to handle the result better
-}

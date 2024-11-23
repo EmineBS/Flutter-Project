@@ -1,41 +1,57 @@
+import 'package:grocery/models/product.dart';
+
 class Commande {
   final int id;
-  final int actorId;
-  final String actorType;
-  final String status;
+  final String actorName; // Nullable
+  final int? actorCin;     // Nullable
+  final String type;      // Nullable
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<Product> products;
 
   Commande({
     required this.id,
-    required this.actorId,
-    required this.actorType,
-    required this.status,
+    required this.actorName,
+    this.actorCin,
+    required this.type,
     required this.createdAt,
     required this.updatedAt,
+    required this.products,
   });
 
-  // Factory constructor for creating a Commande instance from JSON
   factory Commande.fromJson(Map<String, dynamic> json) {
-    return Commande(
-      id: json['id'],
-      actorId: json['actorId'],
-      actorType: json['actorType'],
-      status: json['status'],
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-    );
+    try {
+      //print('Parsing Commande JSON: $json');
+
+      return Commande(
+        id: json['id'],
+        actorName: json['actorName'], // Nullable
+        actorCin: json['actorCin'],   // Nullable
+        type: json['type'],           // Nullable
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        products: (json['Products'] as List)
+            .map((item) {
+          //print('Parsing product: $item');
+          return Product.fromJson(item);
+        })
+            .toList(),
+      );
+    } catch (e) {
+      print('Error parsing Commande: $e');
+      rethrow;
+    }
   }
 
-  // Convert a Commande instance to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'actorId': actorId,
-      'actorType': actorType,
-      'status': status,
+      'actorName': actorName,
+      'actorCin': actorCin,
+      'type': type,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
+      'Products': products.map((product) => product.toJson()).toList(),
     };
   }
 }

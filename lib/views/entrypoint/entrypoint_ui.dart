@@ -5,7 +5,7 @@ import '../../core/constants/app_icons.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
-import '../cart/cart_page.dart';
+import '../vente/vente_page.dart';
 import '../home/home_page.dart';
 import '../menu/menu_page.dart';
 import '../profile/profile_page.dart';
@@ -34,7 +34,7 @@ class _EntryPointUIState extends State<EntryPointUI> {
   List<Widget> pages = [
     const HomePage(),
     const MenuPage(),
-    const CartPage(isHomePage: true),
+    const VentePage(),
     const SavePage(isHomePage: false),
     const ProfilePage(),
   ];
@@ -55,13 +55,13 @@ class _EntryPointUIState extends State<EntryPointUI> {
         duration: AppDefaults.duration,
         child: pages[currentIndex],
       ),
-      floatingActionButton: FloatingActionButton(
+      /**floatingActionButton: FloatingActionButton(
         onPressed: () {
           onBottomNavigationTap(2);
         },
         backgroundColor: AppColors.primary,
         child: SvgPicture.asset(AppIcons.cart),
-      ),
+      ),**/
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AppBottomNavigationBar(
         currentIndex: currentIndex,

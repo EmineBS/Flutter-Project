@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import '../models/commande.dart';
+import '../services/result.dart';
 
 class CommandeService {
   final Dio _dio = Dio();
@@ -39,9 +40,9 @@ class CommandeService {
   }
 
   // Create a new commande
-  Future<Commande> createCommande(Commande commande) async {
+  Future<Commande> createCommande(commande) async {
     try {
-      Response response = await _dio.post(apiUrl, data: commande.toJson());
+      Response response = await _dio.post(apiUrl, data: commande);
 
       if (response.statusCode == 201) {
         return Commande.fromJson(response.data);
