@@ -2,41 +2,40 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:grocery/core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
-import 'package:grocery/services/commande_service.dart';
-import 'package:grocery/models/commande.dart';
+import 'package:grocery/services/product_service.dart';
+import 'package:grocery/models/product.dart';
 import 'package:grocery/core/config/api_constants.dart';
 import 'components/product_detail.dart';
 import 'package:intl/intl.dart';
-import 'achats_page.dart';
-import 'components/add_achat.dart';
+import 'products_page.dart';
+import 'components/add_product.dart';
 
-class EmptySavePage extends StatefulWidget {
-  final String type;
-  const EmptySavePage({super.key, required this.type});
+class StorePage extends StatefulWidget {
+  const StorePage({super.key});
 
   @override
-  _EmptySavePageState createState() => _EmptySavePageState();
+  _StorePageState createState() => _StorePageState();
 }
 
-class _EmptySavePageState extends State<EmptySavePage> {
-  List<Commande> _commandes = [];
+class _StorePageState extends State<StorePage> {
+  List<Product> _products = [];
   bool _isLoading = true;
 
   Future<void> getCategoryProducts() async {
     try {
-      final apiUrl = '${ApiConstants.baseUrl}/commande/commandes/${widget.type}';
+      final apiUrl = '${ApiConstants.baseUrl}/product/products';
       print(apiUrl);
-      CommandeService commandeService = CommandeService(apiUrl: apiUrl);
-      final result = await commandeService.fetchCommandes();
+      ProductService productService = ProductService(apiUrl: apiUrl);
+      final result = await productService.fetchProducts();
 
       if (result.isNotEmpty) {
         setState(() {
-          _commandes = result;
+          _products = result;
           _isLoading = false;
         });
       }
     } catch (e) {
-      print('Error fetching category products: $e');
+      print('Error fetching products: $e');
       setState(() {
         _isLoading = false;
       });
@@ -49,12 +48,12 @@ class _EmptySavePageState extends State<EmptySavePage> {
     getCategoryProducts();
   }
 
-  void _navigateToDetail(Commande commande) async {
+  void _navigateToDetail(Product product) async {
     // Wait for the result from the CommandeDetailScreen (whether it's success or failure)
     bool? result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CommandeDetailScreen(commande: commande),
+        builder: (context) => ProductDetailScreen(product: product),
       ),
     );
 
@@ -81,13 +80,13 @@ class _EmptySavePageState extends State<EmptySavePage> {
                     // Action for panier icon
                   },
                   icon: const Icon(
-                    Icons.shopping_cart,
+                    Icons.store,
                     color: Colors.white,
                   ),
                 ),
                 //const SizedBox(width: 8),
                 Text(
-                  '${widget.type}',
+                  'Products',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -166,8 +165,8 @@ class _EmptySavePageState extends State<EmptySavePage> {
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
               // ListView with items
-              AchatsList(
-                commandes: _commandes,
+              ProductsList(
+                products: _products,
                 onNavigateToDetail: _navigateToDetail,
               ),
             ],
@@ -181,7 +180,7 @@ class _EmptySavePageState extends State<EmptySavePage> {
                 bool? result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddAchatScreen(type: '${widget.type}'),
+                    builder: (context) => AddProductScreen(),
                   ),
                 );
 

@@ -5,13 +5,13 @@ import 'empty_save_page.dart';
 class SavePage extends StatelessWidget {
   const SavePage({
     super.key,
-    this.isHomePage = false,
+    this.type = "Achat",
   });
 
-  final bool isHomePage;
+  final String type;
 
   @override
   Widget build(BuildContext context) {
-    return const EmptySavePage();
+    return EmptySavePage(type: type);
   }
 }

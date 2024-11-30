@@ -5,15 +5,14 @@ import 'package:grocery/services/product_service.dart';
 import 'package:grocery/models/product.dart';
 import 'package:grocery/core/config/api_constants.dart';
 
-class AddAchatScreen extends StatefulWidget {
-  final String type;
-  const AddAchatScreen({super.key, required this.type});
+class AddProductScreen extends StatefulWidget {
+  const AddProductScreen({super.key});
 
   @override
-  _AddAchatScreenState createState() => _AddAchatScreenState();
+  _AddProductScreenState createState() => _AddProductScreenState();
 }
 
-class _AddAchatScreenState extends State<AddAchatScreen> {
+class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController fournisseurController = TextEditingController();
   final TextEditingController cinController = TextEditingController();
   List<Product> products = [];
@@ -81,19 +80,19 @@ class _AddAchatScreenState extends State<AddAchatScreen> {
     }
 
     try {
-      final apiUrl = '${ApiConstants.baseUrl}/commande/commandes';
+      final apiUrl = '${ApiConstants.baseUrl}/product/products';
       CommandeService commandeService = CommandeService(apiUrl: apiUrl);
       var commande = {
         'actorName': fournisseur,
         'actorCin': cin.isEmpty ? null : cin,
-        'type': '${widget.type}',
+        //'type': '${widget.type}',
         'products': selectedProducts,
       };
       final result = await commandeService.createCommande(commande);
 
       if (result != null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${widget.type} submitted successfully!')),
+          SnackBar(content: Text('Product submitted successfully!')),
         );
         Navigator.pop(context, true);
       }

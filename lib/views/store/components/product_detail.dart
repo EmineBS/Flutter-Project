@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:grocery/models/commande.dart';
+import 'package:grocery/models/product.dart';
 import 'package:grocery/core/constants/app_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:grocery/core/config/api_constants.dart';
-import 'package:grocery/services/commande_service.dart';
-import 'package:grocery/models/commande.dart';
+import 'package:grocery/services/product_service.dart';
 
-class CommandeDetailScreen extends StatelessWidget {
-  final Commande commande;
+class ProductDetailScreen extends StatelessWidget {
+  final Product product;
 
-  const CommandeDetailScreen({
+  const ProductDetailScreen({
     Key? key,
-    required this.commande,
+    required this.product,
   }) : super(key: key);
 
   String capitalize(String text) {
@@ -19,20 +18,20 @@ class CommandeDetailScreen extends StatelessWidget {
     return text[0].toUpperCase() + text.substring(1);
   }
 
-  Future<void> deleteCommande(BuildContext context, int id) async {
-    const apiUrl = '${ApiConstants.baseUrl}/commande/commandes';
-    CommandeService commandeService = CommandeService(apiUrl: apiUrl);
+  Future<void> deleteProduct(BuildContext context, int id) async {
+    const apiUrl = '${ApiConstants.baseUrl}/product/products';
+    ProductService productService = ProductService(apiUrl: apiUrl);
 
     try {
-      await commandeService.deleteCommande(id);
+      await productService.deleteProduct(id);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Commande deleted successfully!')),
+        const SnackBar(content: Text('Product deleted successfully!')),
       );
       Navigator.pop(context, true);
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to delete commande, Retry Again!')),
+        SnackBar(content: Text('Failed to delete product, Retry Again!')),
       );
     }
   }
@@ -75,7 +74,7 @@ class CommandeDetailScreen extends StatelessWidget {
           color: Colors.white,
         ),
         title: const Text(
-          'Commande Detail',
+          'Product Detail',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -114,7 +113,7 @@ class CommandeDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        commande.actorName.toUpperCase() ?? 'Retail',
+                        product.name.toUpperCase() ?? 'Retail',
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -123,7 +122,7 @@ class CommandeDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Date: ${DateFormat('yyyy-MM-dd HH:mm').format(commande.createdAt)}',
+                        'Date: ${DateFormat('yyyy-MM-dd HH:mm').format(product.createdAt)}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],
@@ -140,7 +139,7 @@ class CommandeDetailScreen extends StatelessWidget {
                     ),
                     onPressed: () async {
                       // Call the delete function and await it
-                      await deleteCommande(context, commande.id);
+                      await deleteProduct(context, product.id);
                     },
                   ),
                 ],
@@ -151,8 +150,7 @@ class CommandeDetailScreen extends StatelessWidget {
         Column(
           children: [
             // Loop through products and create individual Containers for each
-            ...commande.products.map((product) {
-              return Column(
+            Column(
                 children: [
                   Container(
                     width: double.infinity,
@@ -164,11 +162,6 @@ class CommandeDetailScreen extends StatelessWidget {
                         _buildInfoRow(
                           'Product',
                           product.name[0].toUpperCase() + product.name.substring(1),
-                        ),
-                        const Divider(height: 1),
-                        _buildInfoRow(
-                          'Quantity',
-                          '${product.quantity ?? 'N/A'}',
                         ),
                         const Divider(height: 1),
                         _buildInfoRow(
@@ -195,29 +188,7 @@ class CommandeDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8), // Space between products
                 ],
-              );
-            }).toList(),
-
-            // Commande details in a separate Container
-            Container(
-              width: double.infinity,
-              color: Colors.white,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildInfoRow(
-                    'Created At',
-                    DateFormat('yyyy-MM-dd HH:mm:ss').format(commande.createdAt),
-                  ),
-                  const Divider(height: 1),
-                  _buildInfoRow(
-                    'Updated At',
-                    DateFormat('yyyy-MM-dd HH:mm:ss').format(commande.updatedAt),
-                  ),
-                ],
               ),
-            ),
           ],
         ),
 

@@ -5,12 +5,13 @@ import '../../core/constants/app_icons.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
-import '../vente/vente_page.dart';
 import '../home/home_page.dart';
 import '../menu/menu_page.dart';
 import '../profile/profile_page.dart';
-import '../save/save_page.dart';
+import '../save/empty_save_page.dart';
 import 'components/app_navigation_bar.dart';
+import '../store/store_page.dart';
+
 
 /// This page will contain all the bottom navigation tabs
 class EntryPointUI extends StatefulWidget {
@@ -32,10 +33,10 @@ class _EntryPointUIState extends State<EntryPointUI> {
 
   /// All the pages
   List<Widget> pages = [
-    const HomePage(),
+    const StorePage(),
     const MenuPage(),
-    const VentePage(),
-    const SavePage(isHomePage: false),
+    const EmptySavePage(key: ValueKey('Vente'), type: 'Vente'),
+    const EmptySavePage(key: ValueKey('Achat'), type: 'Achat'),
     const ProfilePage(),
   ];
 
